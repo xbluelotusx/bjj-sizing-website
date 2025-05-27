@@ -26,10 +26,16 @@
   <h2>Find your perfect FUJI BJJ Gi size in seconds.</h2>
 
   <form id="main-form">
-    <label for="weight">Weight (lbs):</label>
-    <input type="number" id="weight" required min="50" max="400">
+    <label for="units">Choose units:</label>
+    <select id="units">
+      <option value="imperial">Imperial (lbs, feet/inches)</option>
+      <option value="metric">Metric (kg, cm)</option>
+    </select>
 
-    <label for="height">Height (in feet and inches, e.g., 5'8"):</label>
+    <label for="weight" id="weight-label">Weight (lbs):</label>
+    <input type="number" id="weight" required min="50" max="400" placeholder="e.g., 150">
+
+    <label for="height" id="height-label">Height (in feet and inches, e.g., 5'8"):</label>
     <input type="text" id="height" required pattern="^\d+'\d{1,2}\"?$" placeholder="5'8">
 
     <button type="submit">Get My Size</button>
@@ -49,7 +55,7 @@
     </div>
     <div class="faq-item">
       <strong>Q: Can I use metric units?</strong><br>
-      A: Please enter your height in feet/inches and weight in pounds for best results.
+      A: Yes! Select "Metric" at the top and enter your measurements in kg and cm.
     </div>
   </div>
 
@@ -71,7 +77,7 @@
     ];
 
     // Convert height string like 5'8 to inches
-    function parseHeight(heightStr) {
+    function parseHeightImperial(heightStr) {
       const match = heightStr.match(/^(\d+)'\s*(\d{1,2})?$/);
       if (!match) return null;
       const feet = parseInt(match[1], 10);
@@ -79,15 +85,68 @@
       return feet * 12 + inches;
     }
 
+    // Convert cm to inches
+    function cmToInches(cm) {
+      return cm / 2.54;
+    }
+
+    // Convert kg to lbs
+    function kgToLbs(kg) {
+      return kg * 2.20462;
+    }
+
+    // Update form fields based on unit selection
+    document.getElementById('units').addEventListener('change', function() {
+      const units = this.value;
+      const weightLabel = document.getElementById('weight-label');
+      const heightLabel = document.getElementById('height-label');
+      const weightInput = document.getElementById('weight');
+      const heightInput = document.getElementById('height');
+
+      if (units === 'metric') {
+        weightLabel.textContent = 'Weight (kg):';
+        weightInput.placeholder = 'e.g., 70';
+        weightInput.min = 25;
+        weightInput.max = 200;
+        heightLabel.textContent = 'Height (cm):';
+        heightInput.type = 'number';
+        heightInput.placeholder = 'e.g., 175';
+        heightInput.pattern = '\\d+';
+      } else {
+        weightLabel.textContent = 'Weight (lbs):';
+        weightInput.placeholder = 'e.g., 150';
+        weightInput.min = 50;
+        weightInput.max = 400;
+        heightLabel.textContent = "Height (in feet and inches, e.g., 5'8\"):";
+        heightInput.type = 'text';
+        heightInput.placeholder = "5'8";
+        heightInput.pattern = "^\\d+'\\d{1,2}\"?$";
+      }
+    });
+
     document.getElementById('main-form').addEventListener('submit', function(e) {
       e.preventDefault();
-      const weight = parseInt(document.getElementById('weight').value, 10);
-      const heightStr = document.getElementById('height').value.trim();
-      const height = parseHeight(heightStr);
+      const units = document.getElementById('units').value;
+      let weight, height;
 
-      if (!height) {
-        document.getElementById('result').innerHTML = "<p style='color:red;'>Please enter height in the format 5'8</p>";
-        return;
+      if (units === 'metric') {
+        weight = parseFloat(document.getElementById('weight').value);
+        height = parseFloat(document.getElementById('height').value);
+        if (isNaN(weight) || isNaN(height)) {
+          document.getElementById('result').innerHTML = "<p style='color:red;'>Please enter valid numbers for weight and height.</p>";
+          return;
+        }
+        // Convert to imperial
+        weight = kgToLbs(weight);
+        height = cmToInches(height);
+      } else {
+        weight = parseInt(document.getElementById('weight').value, 10);
+        const heightStr = document.getElementById('height').value.trim();
+        height = parseHeightImperial(heightStr);
+        if (!height) {
+          document.getElementById('result').innerHTML = "<p style='color:red;'>Please enter height in the format 5'8</p>";
+          return;
+        }
       }
 
       // Find the first matching size
