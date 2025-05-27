@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Your Website Name</title>
+  <title>BJJ Gi Size Finder</title>
   <style>
     body { font-family: Arial, sans-serif; max-width: 600px; margin: 40px auto; padding: 20px; }
     .logo { width: 100px; display: block; margin: 0 auto 20px auto; }
@@ -22,25 +22,17 @@
   <!-- Logo (replace src with your logo URL or use a placeholder) -->
   <img src="https://placehold.co/100x100?text=Logo" alt="Logo" class="logo">
 
-  <h1>Your Website Name</h1>
-  <h2>Your elevator pitch goes here in one sentence.</h2>
+  <h1>BJJ Gi Size Finder</h1>
+  <h2>Find your perfect FUJI BJJ Gi size in seconds.</h2>
 
   <form id="main-form">
-    <label for="select">Choose an option:</label>
-    <select id="select" required>
-      <option value="">--Please choose--</option>
-      <option value="Option 1">Option 1</option>
-      <option value="Option 2">Option 2</option>
-      <option value="Option 3">Option 3</option>
-    </select>
+    <label for="weight">Weight (lbs):</label>
+    <input type="number" id="weight" required min="50" max="400">
 
-    <label for="input1">First input:</label>
-    <input type="text" id="input1" required>
+    <label for="height">Height (in feet and inches, e.g., 5'8"):</label>
+    <input type="text" id="height" required pattern="^\d+'\d{1,2}\"?$" placeholder="5'8">
 
-    <label for="input2">Second input:</label>
-    <input type="text" id="input2" required>
-
-    <button type="submit">Get Result</button>
+    <button type="submit">Get My Size</button>
   </form>
 
   <div id="result"></div>
@@ -48,33 +40,70 @@
   <div class="faq">
     <h3>FAQ</h3>
     <div class="faq-item">
-      <strong>Q: What is this website for?</strong><br>
-      A: It’s a simple demo one-pager with interactive elements.
+      <strong>Q: How accurate is this size finder?</strong><br>
+      A: It uses the official FUJI BJJ Gi size chart, but always check with your instructor or retailer if unsure.
     </div>
     <div class="faq-item">
-      <strong>Q: How do I use it?</strong><br>
-      A: Fill in the fields and see your result below.
+      <strong>Q: What if I'm between sizes?</strong><br>
+      A: Consider your fit preference (tighter or looser) and consult the brand's recommendations.
     </div>
     <div class="faq-item">
-      <strong>Q: Can I customize it?</strong><br>
-      A: Yes! Edit the HTML as you like.
+      <strong>Q: Can I use metric units?</strong><br>
+      A: Please enter your height in feet/inches and weight in pounds for best results.
     </div>
   </div>
 
   <script>
+    // FUJI BJJ GI SIZE CHART
+    const sizeChart = [
+      { size: "A00", heightMin: 58, heightMax: 61, weightMin: 95, weightMax: 110 },
+      { size: "A0",  heightMin: 58, heightMax: 63, weightMin: 95, weightMax: 125 },
+      { size: "A1",  heightMin: 63, heightMax: 66, weightMin: 110, weightMax: 140 },
+      { size: "A1L", heightMin: 67, heightMax: 69, weightMin: 110, weightMax: 140 },
+      { size: "A2",  heightMin: 65, heightMax: 69, weightMin: 140, weightMax: 170 },
+      { size: "A2L", heightMin: 71, heightMax: 73, weightMin: 140, weightMax: 170 },
+      { size: "A3",  heightMin: 69, heightMax: 73, weightMin: 170, weightMax: 200 },
+      { size: "A3L", heightMin: 74, heightMax: 76, weightMin: 170, weightMax: 200 },
+      { size: "A4",  heightMin: 72, heightMax: 76, weightMin: 200, weightMax: 250 },
+      { size: "A5",  heightMin: 74, heightMax: 78, weightMin: 225, weightMax: 275 },
+      { size: "A6",  heightMin: 76, heightMax: 80, weightMin: 250, weightMax: 1000 },
+      { size: "A7",  heightMin: 78, heightMax: 100, weightMin: 250, weightMax: 1000 }
+    ];
+
+    // Convert height string like 5'8 to inches
+    function parseHeight(heightStr) {
+      const match = heightStr.match(/^(\d+)'\s*(\d{1,2})?$/);
+      if (!match) return null;
+      const feet = parseInt(match[1], 10);
+      const inches = match[2] ? parseInt(match[2], 10) : 0;
+      return feet * 12 + inches;
+    }
+
     document.getElementById('main-form').addEventListener('submit', function(e) {
       e.preventDefault();
-      const select = document.getElementById('select').value;
-      const input1 = document.getElementById('input1').value;
-      const input2 = document.getElementById('input2').value;
-      if (select && input1 && input2) {
+      const weight = parseInt(document.getElementById('weight').value, 10);
+      const heightStr = document.getElementById('height').value.trim();
+      const height = parseHeight(heightStr);
+
+      if (!height) {
+        document.getElementById('result').innerHTML = "<p style='color:red;'>Please enter height in the format 5'8</p>";
+        return;
+      }
+
+      // Find the first matching size
+      const match = sizeChart.find(row =>
+        weight >= row.weightMin && weight <= row.weightMax &&
+        height >= row.heightMin && height <= row.heightMax
+      );
+
+      if (match) {
         document.getElementById('result').innerHTML = `
           <table id="result-table">
-            <tr><th>Selected Option</th><td>${select}</td></tr>
-            <tr><th>First Input</th><td>${input1}</td></tr>
-            <tr><th>Second Input</th><td>${input2}</td></tr>
+            <tr><th>Recommended Size</th><td>${match.size}</td></tr>
           </table>
         `;
+      } else {
+        document.getElementById('result').innerHTML = "<p style='color:red;'>No size found for your measurements. Please double-check your entries or consult the brand's size chart.</p>";
       }
     });
   </script>
