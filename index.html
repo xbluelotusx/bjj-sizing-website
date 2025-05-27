@@ -23,7 +23,7 @@
   <img src="https://placehold.co/100x100?text=Logo" alt="Logo" class="logo">
 
   <h1>BJJ Gi Size Finder</h1>
-  <h2>Find your perfect FUJI BJJ Gi size in seconds.</h2>
+  <h2>Find your perfect FUJI and Tatami BJJ Gi size in seconds.</h2>
 
   <form id="main-form">
     <label for="units">Choose units:</label>
@@ -38,7 +38,7 @@
     <label for="height" id="height-label">Height (in feet and inches, e.g., 5'8"):</label>
     <input type="text" id="height" required pattern="^\d+'\d{1,2}\"?$" placeholder="5'8">
 
-    <button type="submit">Get My Size</button>
+    <button type="submit">Get My Sizes</button>
   </form>
 
   <div id="result"></div>
@@ -47,7 +47,7 @@
     <h3>FAQ</h3>
     <div class="faq-item">
       <strong>Q: How accurate is this size finder?</strong><br>
-      A: It uses the official FUJI BJJ Gi size chart, but always check with your instructor or retailer if unsure.
+      A: It uses the official FUJI and Tatami BJJ Gi size charts, but always check with your instructor or retailer if unsure.
     </div>
     <div class="faq-item">
       <strong>Q: What if I'm between sizes?</strong><br>
@@ -61,7 +61,7 @@
 
   <script>
     // FUJI BJJ GI SIZE CHART
-    const sizeChart = [
+    const fujiChart = [
       { size: "A00", heightMin: 58, heightMax: 61, weightMin: 95, weightMax: 110 },
       { size: "A0",  heightMin: 58, heightMax: 63, weightMin: 95, weightMax: 125 },
       { size: "A1",  heightMin: 63, heightMax: 66, weightMin: 110, weightMax: 140 },
@@ -74,6 +74,25 @@
       { size: "A5",  heightMin: 74, heightMax: 78, weightMin: 225, weightMax: 275 },
       { size: "A6",  heightMin: 76, heightMax: 80, weightMin: 250, weightMax: 1000 },
       { size: "A7",  heightMin: 78, heightMax: 100, weightMin: 250, weightMax: 1000 }
+    ];
+
+    // Tatami BJJ GI SIZE CHART
+    const tatamiChart = [
+      { size: "A0",   heightMin: 64,  heightMax: 66,  weightMin: 132, weightMax: 155 },
+      { size: "A0L",  heightMin: 66,  heightMax: 68,  weightMin: 132, weightMax: 155 },
+      { size: "A1",   heightMin: 66,  heightMax: 68,  weightMin: 132, weightMax: 170 },
+      { size: "A1L",  heightMin: 68,  heightMax: 70,  weightMin: 132, weightMax: 170 },
+      { size: "A2",   heightMin: 67,  heightMax: 70,  weightMin: 155, weightMax: 192 },
+      { size: "A2H",  heightMin: 67,  heightMax: 70,  weightMin: 170, weightMax: 192 },
+      { size: "A2L",  heightMin: 70,  heightMax: 72,  weightMin: 170, weightMax: 192 },
+      { size: "A2XL", heightMin: 72,  heightMax: 76,  weightMin: 170, weightMax: 192 },
+      { size: "A3",   heightMin: 71,  heightMax: 74,  weightMin: 192, weightMax: 220 },
+      { size: "A3S",  heightMin: 67,  heightMax: 72,  weightMin: 192, weightMax: 220 },
+      { size: "A3L",  heightMin: 72,  heightMax: 76,  weightMin: 192, weightMax: 220 },
+      { size: "A4",   heightMin: 72,  heightMax: 76,  weightMin: 220, weightMax: 253 },
+      { size: "A4L",  heightMin: 76,  heightMax: 79,  weightMin: 220, weightMax: 253 },
+      { size: "A5",   heightMin: 74,  heightMax: 79,  weightMin: 253, weightMax: 287 },
+      { size: "A6",   heightMin: 76,  heightMax: 79,  weightMin: 287, weightMax: 320 }
     ];
 
     // Convert height string like 5'8 to inches
@@ -149,21 +168,34 @@
         }
       }
 
-      // Find the first matching size
-      const match = sizeChart.find(row =>
+      // Find the first matching size for each brand
+      const fujiMatch = fujiChart.find(row =>
+        weight >= row.weightMin && weight <= row.weightMax &&
+        height >= row.heightMin && height <= row.heightMax
+      );
+      const tatamiMatch = tatamiChart.find(row =>
         weight >= row.weightMin && weight <= row.weightMax &&
         height >= row.heightMin && height <= row.heightMax
       );
 
-      if (match) {
-        document.getElementById('result').innerHTML = `
-          <table id="result-table">
-            <tr><th>Recommended Size</th><td>${match.size}</td></tr>
-          </table>
-        `;
+      let tableRows = '';
+      if (fujiMatch) {
+        tableRows += `<tr><th>FUJI</th><td>${fujiMatch.size}</td></tr>`;
       } else {
-        document.getElementById('result').innerHTML = "<p style='color:red;'>No size found for your measurements. Please double-check your entries or consult the brand's size chart.</p>";
+        tableRows += `<tr><th>FUJI</th><td style="color:red;">No size found</td></tr>`;
       }
+      if (tatamiMatch) {
+        tableRows += `<tr><th>Tatami</th><td>${tatamiMatch.size}</td></tr>`;
+      } else {
+        tableRows += `<tr><th>Tatami</th><td style="color:red;">No size found</td></tr>`;
+      }
+
+      document.getElementById('result').innerHTML = `
+        <table id="result-table">
+          <tr><th>Brand</th><th>Recommended Size</th></tr>
+          ${tableRows}
+        </table>
+      `;
     });
   </script>
 </body>
