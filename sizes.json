@@ -1,0 +1,231 @@
+{
+  "brand": "Tatami",
+  "type": "Gi",
+  "gender": "male",
+  "sizes": [
+    {
+      "size": "A0",
+      "weight_kg": "60-70",
+      "height_cm": "162-168",
+      "details": {
+        "wingspan_cm": 162,
+        "jacket_length_cm": 74,
+        "chest_cm": 54,
+        "waist_cm": 50,
+        "hips_cm": 54,
+        "length_back_cm": 94
+      },
+      "notes": ""
+    },
+    {
+      "size": "A0L",
+      "weight_kg": "60-70",
+      "height_cm": "168-172",
+      "details": {
+        "wingspan_cm": 168,
+        "jacket_length_cm": 78,
+        "chest_cm": 54,
+        "waist_cm": 50,
+        "hips_cm": 54,
+        "length_back_cm": 98
+      },
+      "notes": "L stands for long, pants are 4cm longer than A0, wingspan is 5cm longer"
+    },
+    {
+      "size": "A1",
+      "weight_kg": "70-77",
+      "height_cm": "172-175",
+      "details": {
+        "wingspan_cm": 158,
+        "jacket_length_cm": 78,
+        "chest_cm": 54,
+        "waist_cm": 54,
+        "hips_cm": 54,
+        "length_back_cm": 94
+      },
+      "notes": ""
+    },
+    {
+      "size": "A1L",
+      "weight_kg": "70-77",
+      "height_cm": "175-178",
+      "details": {
+        "wingspan_cm": 163,
+        "jacket_length_cm": 82,
+        "chest_cm": 54,
+        "waist_cm": 54,
+        "hips_cm": 54,
+        "length_back_cm": 98
+      },
+      "notes": "Pants are 3cm longer than A1, wingspan is 5cm longer"
+    },
+    {
+      "size": "A1S",
+      "weight_kg": "70-77",
+      "height_cm": "165-170",
+      "details": {
+        "wingspan_cm": 153,
+        "jacket_length_cm": 75,
+        "chest_cm": 54,
+        "waist_cm": 50,
+        "hips_cm": 54,
+        "length_back_cm": 91
+      },
+      "notes": "S stands for shorter, jacket is 3cm shorter and 3cm less wingspan than A1, pants are 3cm shorter"
+    },
+    {
+      "size": "A2",
+      "weight_kg": "77-87",
+      "height_cm": "172-178",
+      "details": {
+        "wingspan_cm": 165,
+        "jacket_length_cm": 80,
+        "chest_cm": 56,
+        "waist_cm": 56,
+        "hips_cm": 56,
+        "length_back_cm": 99
+      },
+      "notes": ""
+    },
+    {
+      "size": "A2H",
+      "weight_kg": "87-100",
+      "height_cm": "170-178",
+      "details": {
+        "wingspan_cm": 169,
+        "jacket_length_cm": 80,
+        "chest_cm": 61,
+        "waist_cm": 60,
+        "hips_cm": 60,
+        "length_back_cm": 99
+      },
+      "notes": "H stands for heavy, jacket is 4cm wider than A2, pants are 4cm wider"
+    },
+    {
+      "size": "A2L",
+      "weight_kg": "77-87",
+      "height_cm": "178-183",
+      "details": {
+        "wingspan_cm": 169,
+        "jacket_length_cm": 84,
+        "chest_cm": 56,
+        "waist_cm": 56,
+        "hips_cm": 56,
+        "length_back_cm": 102
+      },
+      "notes": "L stands for long, pants are 3cm longer than A2, wingspan is 4cm longer"
+    },
+    {
+      "size": "A2XL",
+      "weight_kg": "87-100",
+      "height_cm": "178-183",
+      "details": {
+        "wingspan_cm": 173,
+        "jacket_length_cm": 88,
+        "chest_cm": 61,
+        "waist_cm": 60,
+        "hips_cm": 60,
+        "length_back_cm": 107
+      },
+      "notes": "XL stands for extra long, pants are 8cm longer than A2, wingspan is 8cm longer"
+    },
+    {
+      "size": "A3S",
+      "weight_kg": "87-100",
+      "height_cm": "170-178",
+      "details": {
+        "wingspan_cm": 165,
+        "jacket_length_cm": 80,
+        "chest_cm": 56,
+        "waist_cm": 56,
+        "hips_cm": 56,
+        "length_back_cm": 99
+      },
+      "notes": "S stands for shorter, jacket is 5cm shorter and 5cm less wingspan than A3, pants are 5cm shorter"
+    },
+    {
+      "size": "A3",
+      "weight_kg": "87-100",
+      "height_cm": "180-188",
+      "details": {
+        "wingspan_cm": 170,
+        "jacket_length_cm": 85,
+        "chest_cm": 59,
+        "waist_cm": 59,
+        "hips_cm": 59,
+        "length_back_cm": 102
+      },
+      "notes": ""
+    },
+    {
+      "size": "A3L",
+      "weight_kg": "87-100",
+      "height_cm": "183-193",
+      "details": {
+        "wingspan_cm": 175,
+        "jacket_length_cm": 90,
+        "chest_cm": 59,
+        "waist_cm": 59,
+        "hips_cm": 59,
+        "length_back_cm": 107
+      },
+      "notes": "L stands for long, pants are 5cm longer than A3, wingspan is 5cm longer"
+    },
+    {
+      "size": "A4",
+      "weight_kg": "100-115",
+      "height_cm": "183-193",
+      "details": {
+        "wingspan_cm": 172,
+        "jacket_length_cm": 88,
+        "chest_cm": 61,
+        "waist_cm": 61,
+        "hips_cm": 61,
+        "length_back_cm": 106
+      },
+      "notes": ""
+    },
+    {
+      "size": "A4L",
+      "weight_kg": "100-115",
+      "height_cm": "193-200",
+      "details": {
+        "wingspan_cm": 178,
+        "jacket_length_cm": 92,
+        "chest_cm": 61,
+        "waist_cm": 61,
+        "hips_cm": 61,
+        "length_back_cm": 109
+      },
+      "notes": ""
+    },
+    {
+      "size": "A5",
+      "weight_kg": "115-130",
+      "height_cm": "188-195",
+      "details": {
+        "wingspan_cm": 183,
+        "jacket_length_cm": 96,
+        "chest_cm": 66,
+        "waist_cm": 64,
+        "hips_cm": 67,
+        "length_back_cm": 112
+      },
+      "notes": ""
+    },
+    {
+      "size": "A6",
+      "weight_kg": "130-145",
+      "height_cm": "192-200",
+      "details": {
+        "wingspan_cm": 192,
+        "jacket_length_cm": 102,
+        "chest_cm": 68,
+        "waist_cm": 67,
+        "hips_cm": 72,
+        "length_back_cm": 112
+      },
+      "notes": ""
+    }
+  ]
+}
