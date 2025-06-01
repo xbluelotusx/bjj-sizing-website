@@ -60,40 +60,39 @@
   </div>
 
   <script>
-    // FUJI BJJ GI SIZE CHART
-    const fujiChart = [
-      { size: "A00", heightMin: 58, heightMax: 61, weightMin: 95, weightMax: 110 },
-      { size: "A0",  heightMin: 58, heightMax: 63, weightMin: 95, weightMax: 125 },
-      { size: "A1",  heightMin: 63, heightMax: 66, weightMin: 110, weightMax: 140 },
-      { size: "A1L", heightMin: 67, heightMax: 69, weightMin: 110, weightMax: 140 },
-      { size: "A2",  heightMin: 65, heightMax: 69, weightMin: 140, weightMax: 170 },
-      { size: "A2L", heightMin: 71, heightMax: 73, weightMin: 140, weightMax: 170 },
-      { size: "A3",  heightMin: 69, heightMax: 73, weightMin: 170, weightMax: 200 },
-      { size: "A3L", heightMin: 74, heightMax: 76, weightMin: 170, weightMax: 200 },
-      { size: "A4",  heightMin: 72, heightMax: 76, weightMin: 200, weightMax: 250 },
-      { size: "A5",  heightMin: 74, heightMax: 78, weightMin: 225, weightMax: 275 },
-      { size: "A6",  heightMin: 76, heightMax: 80, weightMin: 250, weightMax: 1000 },
-      { size: "A7",  heightMin: 78, heightMax: 100, weightMin: 250, weightMax: 1000 }
-    ];
+    // All size charts will be loaded from JSON
+    let brandCharts = {};
 
-    // Tatami BJJ GI SIZE CHART
-    const tatamiChart = [
-      { size: "A0",   heightMin: 64,  heightMax: 66,  weightMin: 132, weightMax: 155 },
-      { size: "A0L",  heightMin: 66,  heightMax: 68,  weightMin: 132, weightMax: 155 },
-      { size: "A1",   heightMin: 66,  heightMax: 68,  weightMin: 132, weightMax: 170 },
-      { size: "A1L",  heightMin: 68,  heightMax: 70,  weightMin: 132, weightMax: 170 },
-      { size: "A2",   heightMin: 67,  heightMax: 70,  weightMin: 155, weightMax: 192 },
-      { size: "A2H",  heightMin: 67,  heightMax: 70,  weightMin: 170, weightMax: 192 },
-      { size: "A2L",  heightMin: 70,  heightMax: 72,  weightMin: 170, weightMax: 192 },
-      { size: "A2XL", heightMin: 72,  heightMax: 76,  weightMin: 170, weightMax: 192 },
-      { size: "A3",   heightMin: 71,  heightMax: 74,  weightMin: 192, weightMax: 220 },
-      { size: "A3S",  heightMin: 67,  heightMax: 72,  weightMin: 192, weightMax: 220 },
-      { size: "A3L",  heightMin: 72,  heightMax: 76,  weightMin: 192, weightMax: 220 },
-      { size: "A4",   heightMin: 72,  heightMax: 76,  weightMin: 220, weightMax: 253 },
-      { size: "A4L",  heightMin: 76,  heightMax: 79,  weightMin: 220, weightMax: 253 },
-      { size: "A5",   heightMin: 74,  heightMax: 79,  weightMin: 253, weightMax: 287 },
-      { size: "A6",   heightMin: 76,  heightMax: 79,  weightMin: 287, weightMax: 320 }
-    ];
+    // Helper: parse a range string like "60-70" to [60, 70]
+    function parseRange(str) {
+      if (!str) return [null, null];
+      return str.split('-').map(Number);
+    }
+
+    // Load all brands from JSON (expects an array or an object with multiple brands)
+    fetch('sizes.json')
+      .then(response => response.json())
+      .then(data => {
+        // If the JSON is a single brand (like your current Tatami), wrap in array for consistency
+        let brands = Array.isArray(data) ? data : [data];
+        brands.forEach(brandData => {
+          // Each brandData should have a "brand" and "sizes"
+          brandCharts[brandData.brand] = brandData.sizes.map(item => {
+            // Parse weight and height ranges
+            let [weightMin, weightMax] = parseRange(item.weight_kg);
+            let [heightMin, heightMax] = parseRange(item.height_cm);
+            return {
+              size: item.size,
+              weightMin: weightMin ? weightMin * 2.20462 : null, // kg to lbs
+              weightMax: weightMax ? weightMax * 2.20462 : null,
+              heightMin: heightMin ? heightMin / 2.54 : null,    // cm to inches
+              heightMax: heightMax ? heightMax / 2.54 : null,
+              details: item.details,
+              notes: item.notes
+            };
+          });
+        });
+      });
 
     // Convert height string like 5'8 to inches
     function parseHeightImperial(heightStr) {
@@ -104,17 +103,9 @@
       return feet * 12 + inches;
     }
 
-    // Convert cm to inches
-    function cmToInches(cm) {
-      return cm / 2.54;
-    }
+    function cmToInches(cm) { return cm / 2.54; }
+    function kgToLbs(kg) { return kg * 2.20462; }
 
-    // Convert kg to lbs
-    function kgToLbs(kg) {
-      return kg * 2.20462;
-    }
-
-    // Update form fields based on unit selection
     document.getElementById('units').addEventListener('change', function() {
       const units = this.value;
       const weightLabel = document.getElementById('weight-label');
@@ -155,7 +146,6 @@
           document.getElementById('result').innerHTML = "<p style='color:red;'>Please enter valid numbers for weight and height.</p>";
           return;
         }
-        // Convert to imperial
         weight = kgToLbs(weight);
         height = cmToInches(height);
       } else {
@@ -168,26 +158,32 @@
         }
       }
 
-      // Find the first matching size for each brand
-      const fujiMatch = fujiChart.find(row =>
-        weight >= row.weightMin && weight <= row.weightMax &&
-        height >= row.heightMin && height <= row.heightMax
-      );
-      const tatamiMatch = tatamiChart.find(row =>
-        weight >= row.weightMin && weight <= row.weightMax &&
-        height >= row.heightMin && height <= row.heightMax
-      );
+      // Wait for brandCharts to be loaded
+      if (Object.keys(brandCharts).length === 0) {
+        document.getElementById('result').innerHTML = "<p>Loading size data, please try again in a moment.</p>";
+        return;
+      }
 
       let tableRows = '';
-      if (fujiMatch) {
-        tableRows += `<tr><th>FUJI</th><td>${fujiMatch.size}</td></tr>`;
-      } else {
-        tableRows += `<tr><th>FUJI</th><td style="color:red;">No size found</td></tr>`;
+      let foundAny = false;
+      for (const brand in brandCharts) {
+        const match = brandCharts[brand].find(row =>
+          (!row.weightMin || weight >= row.weightMin) &&
+          (!row.weightMax || weight <= row.weightMax) &&
+          (!row.heightMin || height >= row.heightMin) &&
+          (!row.heightMax || height <= row.heightMax)
+        );
+        if (match) {
+          foundAny = true;
+          tableRows += `<tr><th>${brand}</th><td>${match.size}</td></tr>`;
+        } else {
+          tableRows += `<tr><th>${brand}</th><td style="color:red;">No size found</td></tr>`;
+        }
       }
-      if (tatamiMatch) {
-        tableRows += `<tr><th>Tatami</th><td>${tatamiMatch.size}</td></tr>`;
-      } else {
-        tableRows += `<tr><th>Tatami</th><td style="color:red;">No size found</td></tr>`;
+
+      if (!foundAny) {
+        document.getElementById('result').innerHTML = "<p style='color:red;'>No matching size found for your measurements.</p>";
+        return;
       }
 
       document.getElementById('result').innerHTML = `
