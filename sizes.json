@@ -229,3 +229,120 @@
     }
   ]
 }
+{
+  "brand": "Fuji",
+  "type": "Gi",
+  "gender": "male",
+  "sizes": [
+    {
+      "size": "A0",
+      "weight_kg": "43-50",
+      "height_cm": "147-155",
+      "details": {
+        "wingspan_cm": 156.2,
+        "length_back_cm": 89.0
+      },
+      "notes": ""
+    },
+    {
+      "size": "A1",
+      "weight_kg": "50-64",
+      "height_cm": "157-165",
+      "details": {
+        "wingspan_cm": 160.0,
+        "length_back_cm": 95.3
+      },
+      "notes": ""
+    },
+    {
+      "size": "A2",
+      "weight_kg": "64-77",
+      "height_cm": "165-175",
+      "details": {
+        "wingspan_cm": 162.6,
+        "length_back_cm": 96.5
+      },
+      "notes": ""
+    },
+    {
+      "size": "A2L",
+      "weight_kg": "64-77",
+      "height_cm": "178-183",
+      "details": {
+        "wingspan_cm": 170.2,
+        "length_back_cm": 104.1
+      },
+      "notes": "L stands for long"
+    },
+    {
+      "size": "A2H",
+      "weight_kg": "77-86",
+      "height_cm": "165-175",
+      "details": {
+        "wingspan_cm": 167.6,
+        "length_back_cm": 95.3
+      },
+      "notes": "H stands for heavy"
+    },
+    {
+      "size": "A3",
+      "weight_kg": "77-91",
+      "height_cm": "175-185",
+      "details": {
+        "wingspan_cm": 170.2,
+        "length_back_cm": 99.1
+      },
+      "notes": ""
+    },
+    {
+      "size": "A3L",
+      "weight_kg": "77-91",
+      "height_cm": "188-193",
+      "details": {
+        "wingspan_cm": 179.1,
+        "length_back_cm": 107.9
+      },
+      "notes": "L stands for long"
+    },
+    {
+      "size": "A3H",
+      "weight_kg": "91-100",
+      "height_cm": "175-185",
+      "details": {
+        "wingspan_cm": 175.3,
+        "length_back_cm": 99.1
+      },
+      "notes": "H stands for heavy"
+    },
+    {
+      "size": "A4",
+      "weight_kg": "91-113",
+      "height_cm": "183-193",
+      "details": {
+        "wingspan_cm": 179.1,
+        "length_back_cm": 106.7
+      },
+      "notes": ""
+    },
+    {
+      "size": "A5",
+      "weight_kg": "102-125",
+      "height_cm": "183-193",
+      "details": {
+        "wingspan_cm": 190.5,
+        "length_back_cm": 109.2
+      },
+      "notes": ""
+    },
+    {
+      "size": "A6",
+      "weight_kg": "113-136",
+      "height_cm": "188-198",
+      "details": {
+        "wingspan_cm": 190.5,
+        "length_back_cm": 110.5
+      },
+      "notes": ""
+    }
+  ]
+}
