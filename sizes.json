@@ -371,7 +371,7 @@
       {
         "size": "A0",
         "weight_kg": "64-70",
-        "height_cm": "160-168",
+        "height_cm": "160-165",
         "details": {
           "sleeve_to_sleeve_cm": 153,
           "sleeve_length_cm": 67,
@@ -385,25 +385,9 @@
         "notes": ""
       },
       {
-        "size": "A0H",
-        "weight_kg": "70-79",
-        "height_cm": "160-168",
-        "details": {
-          "sleeve_to_sleeve_cm": 157,
-          "sleeve_length_cm": 69,
-          "chest_cm": 60,
-          "jacket_length_cm": 71,
-          "cuff_width_cm": 16,
-          "waist_cm": 52,
-          "thigh_cm": 27,
-          "pants_length_cm": 92
-        },
-        "notes": ""
-      },
-      {
         "size": "A1",
         "weight_kg": "70-79",
-        "height_cm": "168-175",
+        "height_cm": "170-178",
         "details": {
           "sleeve_to_sleeve_cm": 163,
           "sleeve_length_cm": 70,
@@ -435,7 +419,7 @@
       {
         "size": "A2",
         "weight_kg": "77-86",
-        "height_cm": "175-183",
+        "height_cm": "170-178",
         "details": {
           "sleeve_to_sleeve_cm": 174,
           "sleeve_length_cm": 76,
@@ -467,7 +451,7 @@
       {
         "size": "A2L",
         "weight_kg": "77-86",
-        "height_cm": "180-188",
+        "height_cm": "178-188",
         "details": {
           "sleeve_to_sleeve_cm": 176,
           "sleeve_length_cm": 79,
@@ -483,7 +467,7 @@
       {
         "size": "A3",
         "weight_kg": "86-102",
-        "height_cm": "180-188",
+        "height_cm": "178-188",
         "details": {
           "sleeve_to_sleeve_cm": 179,
           "sleeve_length_cm": 80,
@@ -498,8 +482,8 @@
       },
       {
         "size": "A3H",
-        "weight_kg": "102-113",
-        "height_cm": "180-188",
+        "weight_kg": "104-118",
+        "height_cm": "178-188",
         "details": {
           "sleeve_to_sleeve_cm": 175,
           "sleeve_length_cm": 75,
@@ -515,7 +499,7 @@
       {
         "size": "A3L",
         "weight_kg": "86-102",
-        "height_cm": "188-193",
+        "height_cm": "185-193",
         "details": {
           "sleeve_to_sleeve_cm": 184,
           "sleeve_length_cm": 85,
@@ -531,7 +515,7 @@
       {
         "size": "A4",
         "weight_kg": "104-118",
-        "height_cm": "188-196",
+        "height_cm": "185-193",
         "details": {
           "sleeve_to_sleeve_cm": 188,
           "sleeve_length_cm": 87,
